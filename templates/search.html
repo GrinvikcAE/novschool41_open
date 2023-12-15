@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='srch.css') }}" type="text/css">
+
+<script>
+    const searchForOrder = () => {
+        const searchInputValue = document.getElementById('order_search').value;
+        window.location.href = `/pages/search/${searchInputValue}`;
+    }
+
+</script>
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+{% endblock %}
+
+{% block content %}
+<div>
+    <form>
+        <button align="right" type="submit" style="position: fixed; top: 3.5%; right: 10px;" formmethod="post" formaction="/auth/logout">
+            Выход
+        </button>
+    </form>
+</div>
+
+<div class="orders">
+    <div class="srch">
+        <label for="order_search"></label>
+        <input class="search_button" id="order_search" type="text" placeholder="Фамилия"
+               style="width: 50%;
+               font-size: 20px;
+               margin: 8px 0 10px 10px;
+               font-family: 'Raleway', sans-serif;
+               font-stretch: ultra-expanded;
+               letter-spacing: 4px;
+               padding: 6px 15px;
+               display: inline-block;
+               border: 1px solid #ccc;
+               box-sizing: border-box;">
+        <button align="right" class="search_button" onclick="searchForOrder()"
+                style="position: fixed;
+                top: 20%;
+                right: 10px;">
+            Поиск по фамилии
+        </button>
+    </div>
+    <div class="ord">
+        <table style="border-radius: 8px; border: 1px solid lightgray;">
+            <tr style="text-transform: uppercase;">
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Класс</th>
+                <th>Дата рождения</th>
+                <th>Почта</th>
+            </tr>
+            {% for order in orders %}
+                <tr>
+                    <th height="30"> {{ order.last_name }}</th>
+                    <th> {{ order.first_name }}</th>
+                    <th> {{ order.surname }}</th>
+                    <th> {{ order.class_number }}</th>
+                    <th> {{ order.birth_date.strftime("%d-%m-%Y")}}</th>
+                    <th> {{ order.email }}</th>
+<!--                    <span class="text-2xl font-bold"> {{ order.filename }}</span>-->
+<!--                    <span class="text-2xl font-bold"> {{ order.is_ready }}</span>-->
+<!--                    <span class="text-2xl font-bold"> {{ order.registered_on }}</span>-->
+<!--                    <span class="text-2xl font-bold"> {{ order.complete_on }}</span>-->
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

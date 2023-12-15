@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env-not-dev
+    container_name: novschool41_app
+    command: bash -c "alembic upgrade head && gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+
+  db:
+    image: postgres:15
+    container_name: novschool41_db
+    expose:
+      - 5432
+    env_file:
+      - .env-not-dev
+    environment:
+      - POSTGRES_USERNAME=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DATABASE=${DB_NAME}
+      - POSTGRES_HOST_AUTH_METHOD= "trust"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres -U postgres" ]
+      interval: 10s
+      timeout: 3s
+      retries: 5

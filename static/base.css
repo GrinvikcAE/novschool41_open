@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:wght@400;700&display=swap');
+
+html {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: auto;
+}
+
+body {
+  margin:0;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  justify-content: center;
+  font-stretch: ultra-expanded;
+  letter-spacing: 4px;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.heads {
+
+}
+
+.name {
+  line-height: 34px;
+  padding: 5px 25px;
+  position: fixed;
+  font-weight: 700;
+  left: 10px;
+  top: 1%;
+  float: left;
+  z-index: 98;
+  #text-decoration: underline;
+  font-size: 160%;
+  text-shadow: none;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 0.5px #000000;
+  -webkit-text-fill-color: transparent;
+}
+@supports not (-webkit-text-stroke: 0.5px #000000) {
+  .name {
+    -webkit-text-stroke: 1px #000000
+  }
+}
+
+button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 3px 5px 0 rgba(0,0,0,0.19);
+  background-color: transparent;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  position: fixed;
+  right: 10px;
+  top: 3.5%;
+  border-radius: 8px;
+  border: 1px solid white;
+  line-height: 34px;
+  padding: 5px 25px;
+  float: right;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 100%;
+  z-index: 99;
+  transition: 0.5s;
+  letter-spacing: 4px;
+  overflow: hidden;
+}
+
+button:hover {
+  background-color: rgba(120,117,117,1);
+  box-shadow: 0 8px 30px 0 rgba(0,0,0,0.2), 0 3px 20px 0 rgba(0,0,0,0.5);
+}
+
+.header {
+  position:relative;
+  background: linear-gradient(10deg, rgba(120,117,117,1) 0%, rgba(179,16,16,1) 100%);
+  color:red;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  height:100vh;
+  margin-bottom:-7px; /*Fix for safari gap*/
+  min-height:225px;
+  max-height:250px;
+}
+
+/* Animation */
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% {
+    transform: translate3d(85px,0,0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    min-height:175px;
+    max-height:200px;
+  }
+  .login_button {
+    line-height: 20px;
+    padding: 3px 15px;
+  }
+  h1 {
+    font-size:24px;
+  }
+}

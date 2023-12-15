@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}" type="text/css">
+<script>
+  const modal = document.getElementById('id01');
+
+    window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+<div>
+  <button align="right" type="button" class="login_button" onclick="document.getElementById('id01').style.display='block'">
+    Вход
+  </button>
+</div>
+<div class="order">
+  <form method="post" action="/orders/add_order">
+    <p>
+      Фамилия:<br>
+      <label>
+        <input name="last_name" type="text" maxlength="50" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Имя:<br>
+      <label>
+        <input name="first_name" type="text" maxlength="50" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Отчество:<br>
+      <label>
+        <input name="surname" type="text" maxlength="50" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Класс:<br>
+      <label>
+        <input name="class_number" type="text" maxlength="5" pattern="[0-9]{1,2}[А-Яа-яЁё]{1,2}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Электронная почта:<br>
+      <label>
+        <input name="email" type="email" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Дата рождения:<br>
+      <label >
+        <input name="birth_date" type="date"
+               style="width:231px;
+               font-size: 20px;
+               margin: 8px 0;
+               padding: 6px 15px;
+               font-family: 'Raleway', sans-serif;
+               font-stretch: ultra-expanded;
+               letter-spacing: 4px;
+               border: 1px solid #ccc;
+               display: inline-block;
+               box-sizing: border-box;" required/>
+      </label>
+    </p>
+
+    <button type="submit" class="submit_btn">Отправить</button>
+  </form>
+</div>
+<div id="id01" class="modal">
+
+  <form class="modal-content animate" action="/auth/login" method="post" id="auth_form" enctype="application/x-www-form-urlencoded">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">×</span>
+    </div>
+
+    <div class="container">
+      <label><b>Электронная почта</b></label>
+      <label>
+        <input type="email" placeholder="Введите электронную почту" name="username" required>
+      </label>
+
+      <label><b>Пароль</b></label>
+      <label>
+        <input type="password" placeholder="Введите пароль" name="password" required>
+      </label>
+
+      <button type="submit" class="close_button">Войти</button>
+
+    </div>
+  </form>
+</div>
+{% endblock %}

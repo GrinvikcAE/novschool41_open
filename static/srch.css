@@ -1,0 +1,17 @@
+.ord {
+
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px 10px 10px 10px;
+}
+table {
+    border-collapse: collapse;
+    overflow: hidden;
+    margin: 10px 10px 10px 10px;
+    width: 98%;
+}
+
+td, th {
+    border: 1px solid lightgray;
+
+}
