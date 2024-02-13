@@ -1,11 +1,9 @@
 .order {
     z-index: 98;
-    position: fixed;
+    position: relative;
     left: 10%;
-    top: 15%;
-    width: 80%;
     height: 100%;
-    padding-top: 20px;
+    padding-top: 0px;
 }
 
 input[name=email], input[type=text] {
@@ -15,10 +13,6 @@ input[name=email], input[type=text] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-}
-
-.submit_btn {
-    position: static;
 }
 
 input[type=email], input[type=password]{
@@ -73,7 +67,7 @@ span.psw {
     margin: 15% auto 15% auto;
     border: 1px solid #888;
     width: 60%; /* Could be more or less, depending on screen size */
-    height: 20%;
+    height: 28%;
 }
 
 /* The Close Button (x) */
@@ -96,7 +90,6 @@ span.psw {
   position: static;
 
 }
-
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.4s;

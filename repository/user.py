@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, insert
+from sqlalchemy import select
 from auth.models import user
 
 
@@ -18,12 +18,9 @@ class UserRepository:
     async def get_user(self):
         query = select(user)
         result = await self.session.execute(query)
-        # return result.mappings().all()
         return result.mappings().all()
 
     async def get_user_by_email(self, email: str):
         query = select(user).where(user.c.email == email)
         result = await self.session.execute(query)
         return result.mappings().one()
-
-

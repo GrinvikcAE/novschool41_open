@@ -10,7 +10,7 @@ RUN apt-get update \
   && apt-get -y install postgresql \
   && apt-get clean
 
-RUN pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
@@ -18,7 +18,7 @@ EXPOSE 8000
 
 COPY . .
 
-#RUN chmod a+x docker/*.sh
+RUN alembic init alembic
 
 RUN alembic upgrade head
 

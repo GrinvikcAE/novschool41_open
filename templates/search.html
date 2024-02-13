@@ -12,6 +12,16 @@
 
 </script>
 
+<script>
+    function delete_order(order_id) {
+        fetch("/orders/del_order/" + order_id, {method: "POST"})
+        setTimeout(function () {
+            window.location.reload()
+        }, 500)
+        return false;
+    }
+</script>
+
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 {% endblock %}
@@ -41,12 +51,12 @@
                box-sizing: border-box;">
         <button align="right" class="search_button" onclick="searchForOrder()"
                 style="position: fixed;
-                top: 20%;
+                top: 25%;
                 right: 10px;">
             Поиск по фамилии
         </button>
     </div>
-    <div class="ord">
+    <div class="ord" style="overflow: auto">
         <table style="border-radius: 8px; border: 1px solid lightgray;">
             <tr style="text-transform: uppercase;">
                 <th>Фамилия</th>
@@ -55,19 +65,19 @@
                 <th>Класс</th>
                 <th>Дата рождения</th>
                 <th>Почта</th>
+                <th>Дата запроса</th>
             </tr>
             {% for order in orders %}
                 <tr>
-                    <th height="30"> {{ order.last_name }}</th>
-                    <th> {{ order.first_name }}</th>
-                    <th> {{ order.surname }}</th>
-                    <th> {{ order.class_number }}</th>
-                    <th> {{ order.birth_date.strftime("%d-%m-%Y")}}</th>
-                    <th> {{ order.email }}</th>
-<!--                    <span class="text-2xl font-bold"> {{ order.filename }}</span>-->
-<!--                    <span class="text-2xl font-bold"> {{ order.is_ready }}</span>-->
-<!--                    <span class="text-2xl font-bold"> {{ order.registered_on }}</span>-->
-<!--                    <span class="text-2xl font-bold"> {{ order.complete_on }}</span>-->
+                    <th hidden="hidden"> id: {{ order.id }} </th>
+                    <th height="70"> {{ order.last_name }} </th>
+                    <th> {{ order.first_name }} </th>
+                    <th> {{ order.surname }} </th>
+                    <th> {{ order.class_number }} </th>
+                    <th> {{ order.birth_date.strftime("%d-%m-%Y")}} </th>
+                    <th> {{ order.email }} </th>
+                    <th> {{ order.registered_on_now.strftime("%d-%m-%Y") }} </th>
+                    <th><button type="submit" style="position: sticky; margin-left: 10px;" onclick="delete_order({{order.id}})">Удалить</button> </th>
                 </tr>
             {% endfor %}
         </table>

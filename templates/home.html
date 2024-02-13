@@ -4,13 +4,23 @@
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', path='/home.css') }}" type="text/css">
 <script>
-  const modal = document.getElementById('id01');
+  let modal = document.getElementById('id01');
 
     window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
     }
-}
+  }
+</script>
+<script>
+  function showMessage() {
+    let data = new Date;
+    data.setDate(data.getDate() + 1)
+    let day = data.getDate()
+    let month = data.getMonth()
+    const fMonth = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    alert("Вашу справку Вы можете получить " + day + ' ' + fMonth[month] + " после 13:00 в кабинете 118 (у секретаря)");
+  }
 </script>
 
 
@@ -18,69 +28,11 @@
 
 {% block content %}
 <div>
-  <button align="right" type="button" class="login_button" onclick="document.getElementById('id01').style.display='block'">
+  <button align="right" type="button" style="position: absolute; top: 2.5%; width: 150px;" onclick="document.getElementById('id01').style.display='block'">
     Вход
   </button>
 </div>
-<div class="order">
-  <form method="post" action="/orders/add_order">
-    <p>
-      Фамилия:<br>
-      <label>
-        <input name="last_name" type="text" maxlength="50" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
-      </label>
-    </p>
-
-    <p>
-      Имя:<br>
-      <label>
-        <input name="first_name" type="text" maxlength="50" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
-      </label>
-    </p>
-
-    <p>
-      Отчество:<br>
-      <label>
-        <input name="surname" type="text" maxlength="50" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
-      </label>
-    </p>
-
-    <p>
-      Класс:<br>
-      <label>
-        <input name="class_number" type="text" maxlength="5" pattern="[0-9]{1,2}[А-Яа-яЁё]{1,2}" style="font-size: 20px;" required/>
-      </label>
-    </p>
-
-    <p>
-      Электронная почта:<br>
-      <label>
-        <input name="email" type="email" style="font-size: 20px;" required/>
-      </label>
-    </p>
-
-    <p>
-      Дата рождения:<br>
-      <label >
-        <input name="birth_date" type="date"
-               style="width:231px;
-               font-size: 20px;
-               margin: 8px 0;
-               padding: 6px 15px;
-               font-family: 'Raleway', sans-serif;
-               font-stretch: ultra-expanded;
-               letter-spacing: 4px;
-               border: 1px solid #ccc;
-               display: inline-block;
-               box-sizing: border-box;" required/>
-      </label>
-    </p>
-
-    <button type="submit" class="submit_btn">Отправить</button>
-  </form>
-</div>
 <div id="id01" class="modal">
-
   <form class="modal-content animate" action="/auth/login" method="post" id="auth_form" enctype="application/x-www-form-urlencoded">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть">×</span>
@@ -101,5 +53,62 @@
 
     </div>
   </form>
+
 </div>
+<div class="order" style="overflow: auto; height: 80%; width: 80%; z-index: 98;">
+  <form method="post" action="/orders/add_order">
+    <p>
+      Фамилия:<br>
+      <label>
+        <input name="last_name" type="text" maxlength="50" placeholder="Фамилия ребенка" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Имя:<br>
+      <label>
+        <input name="first_name" type="text" maxlength="50" placeholder="Имя ребенка" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Отчество:<br>
+      <label>
+        <input name="surname" type="text" maxlength="50" placeholder="Отчество ребенка" pattern="[А-Яа-яЁё]{2,50}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Класс:<br>
+      <label>
+        <input name="class_number" type="text" maxlength="5" pattern="[0-9]{1,2}[А-Яа-яЁё]{1,2}" style="font-size: 20px;" required/>
+      </label>
+    </p>
+
+    <p>
+      Электронная почта:<br>
+      <label>
+        <input name="email" type="email" style="font-size: 20px;" placeholder="Если Вы хотите получить электронную версию справки, то укажите свою электронную почту"/>
+      </label>
+    </p>
+    <p>
+      Дата рождения ребенка:<br>
+      <label>
+        <input name="birth_date" type="date"
+               style="width:231px;
+               font-size: 20px;
+               margin: 8px 0;
+               padding: 6px 15px;
+               font-family: 'Raleway', sans-serif;
+               font-stretch: ultra-expanded;
+               letter-spacing: 4px;
+               border: 1px solid #ccc;
+               display: inline-block;
+               box-sizing: border-box;" required/>
+      </label>
+    </p>
+    <button type="submit" style="position: sticky; bottom: 10%; width: 200px;" onclick="showMessage()">Отправить</button>
+  </form>
+</div>
+
 {% endblock %}

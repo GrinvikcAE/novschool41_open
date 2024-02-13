@@ -1,10 +1,6 @@
-import httpx
-from typing import Annotated
-from fastapi import APIRouter, Request, Depends, Form, status
+from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-
-from auth.base_config import current_user
 from auth.models import User
 
 from order.routers import get_specific_orders, get_orders
@@ -29,7 +25,7 @@ def get_home_page(request: Request):
 @router.api_route('/search', response_class=HTMLResponse, methods=['GET', 'POST'])
 def get_search_page(request: Request, orders=Depends(get_orders), user: User = Depends(get_current_user_from_cookie)):
     if user is None:
-        return templates.TemplateResponse('home.html', {'request': request})
+        return get_home_page(request)
     else:
         return templates.TemplateResponse('search.html', {'request': request, 'orders': orders})
 
@@ -38,7 +34,7 @@ def get_search_page(request: Request, orders=Depends(get_orders), user: User = D
 def get_search_page(request: Request, orders=Depends(get_specific_orders),
                     user: User = Depends(get_current_user_from_cookie)):
     if user is None:
-        return templates.TemplateResponse('home.html', {'request': request})
+        return get_home_page(request)
     else:
         return templates.TemplateResponse('search.html', {'request': request, 'orders': orders})
 

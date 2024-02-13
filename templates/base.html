@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', path='/base.css') }}" type="text/css">
     <meta charset="UTF-8">
@@ -34,7 +34,10 @@
     <!--Waves end-->
   </div>
   <!--Header ends-->
-  {% block content %}{% endblock %}
+  <div class="contents">
+      {% block content %}{% endblock %}
+  </div>
+
 
 </body>
 </html>

@@ -4,18 +4,19 @@ from jose import jwt
 from fastapi import HTTPException, Depends, Request
 
 from auth.models import User
+from config import JWT_SECRET, ALGORITHM, COOKIE_NAME, ACCESS_TOKEN_EXPIRE_MINUTES
 
-JWT_SECRET = 'gvHfCFPF27sfgzE8bjAY1kinz46Q238ftzkW50t4WMc7eIXhSq'
-ALGORITHM = 'HS256'
-ACCESS_TOKEN_EXPIRE_MINUTES = 3000
+JWT_SECRET = JWT_SECRET
+ALGORITHM = ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = ACCESS_TOKEN_EXPIRE_MINUTES
 
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='user/signin')
-COOKIE_NAME = "Authorization"
+COOKIE_NAME = COOKIE_NAME
 
 
-def create_access_token(user):
+async def create_access_token(user):
     try:
         payload = {
             "email": user.email,
@@ -28,7 +29,7 @@ def create_access_token(user):
         raise e
 
 
-def verify_token(token):
+async def verify_token(token):
     try:
         payload = jwt.decode(token, key=JWT_SECRET, algorithms=ALGORITHM)
         return payload
@@ -37,21 +38,21 @@ def verify_token(token):
         raise e
 
 
-def get_password_hash(password):
+async def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def verify_password(plain_password, hashed_password):
+async def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def get_current_user_from_token(token: str = Depends(oauth2_scheme)):
-    user = verify_token(token)
+async def get_current_user_from_token(token: str = Depends(oauth2_scheme)):
+    user = await verify_token(token)
     return user
 
 
-def get_current_user_from_cookie(request: Request) -> User:
+async def get_current_user_from_cookie(request: Request) -> User:
     token = request.cookies.get(COOKIE_NAME)
     if token:
-        user = verify_token(token)
+        user = await verify_token(token)
         return user
